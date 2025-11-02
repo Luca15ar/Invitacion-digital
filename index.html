@@ -25,6 +25,16 @@
 
         <h2>Yamila Areco Gonzalez</h2>
 
+        <div class="music-player-container">
+            <audio id="musica" src="./assets/Perfect - Ed Sheeran.mp3" loop></audio>
+
+            <div class="music-player-btn-container">
+                <img class="retroceder-btn" src="./assets/img/rewind.png" alt="retroceder-btn" onclick="retroceder()">
+                <img id="reproducir-btn" src="./assets/img/play.png" alt="reproducir-btn" onclick="toggleMusica()">
+                <img class="adelantar-btn" src="./assets/img/forward.png" alt="adelantar-btn" onclick="adelantar()">
+            </div>
+        </div>
+
         <div class="calendario-container">
             <p class="mes">DICIEMBRE</p>
             
@@ -105,7 +115,35 @@
     </footer>
 
     <script>
-      document.addEventListener('DOMContentLoaded', () => { 
+        const musica = document.getElementById('musica');
+        const reproducir = document.getElementById('reproducir-btn');
+
+        function toggleMusica() 
+        {
+            if (musica.paused) 
+            {
+                musica.play();
+                reproducir.src = "./assets/img/pause.png"
+            } 
+            else 
+            {
+                musica.pause();
+                reproducir.src = "./assets/img/play.png"
+            }
+        }
+
+        function adelantar() 
+        {
+            musica.currentTime += 10; // Avanza 10 segundos
+        }
+
+        function retroceder() 
+        {
+            musica.currentTime -= 10; // Retrocede 10 segundos
+            if (musica.currentTime < 0) musica.currentTime = 0; // Evita ir antes del inicio
+        }
+
+        document.addEventListener('DOMContentLoaded', () => { 
 
         //===
         // VARIABLES Cambia la fecha aquí del evento 
@@ -156,7 +194,7 @@
         updateCountdown();
         // Refresh every second
         setInterval(updateCountdown, MILLISECONDS_OF_A_SECOND);
-    });
+        });
     </script>
 </body>
 </html>
